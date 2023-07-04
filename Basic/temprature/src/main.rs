@@ -6,18 +6,19 @@ fn show_temp(temp: &Temperature) {
     println!("{} drgree F", temp.degree_f);
     println!("{} drgree C", temp.degree_c);
 }
-fn calc(temp: Temperature) {
-    temp.degree_c = ((temp.degree_f - 32.0) * 5.0 ) /9.0;
+fn calc(temp: f64) -> f64 {
+    let result = ((temp - 32.0) * 5.0 ) /9.0;
+    return result;
 
 }
 
 fn main() {
-    let mut hot = Temperature{
-        degree_f: 9.99,
-        degree_c: 0.00,
+    let d = 99.9;
+    let hot = Temperature{
+        degree_f: d,
+        degree_c: calc(d),
     };
     show_temp(&hot);
-    calc(hot);
     show_temp(&hot);
 
 }
