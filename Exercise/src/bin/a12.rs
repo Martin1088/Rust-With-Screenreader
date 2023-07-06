@@ -14,10 +14,27 @@ enum Color {
     Blue,
     Yellow
 }
+impl Color {
+    fn print(&self) {
+        match self {
+            Color::Blue => println!("blue"),
+            Color::Red => println!("red"),
+            Color::Yellow => println!("yellow")
+
+        }
+    }
+}
 struct Dimension {
     width: f64,
-    heigt: f64,
+    height: f64,
     length: f64
+}
+impl Dimension{
+    fn print(&self) {
+        println!("widht: {}", self.width);
+        println!("length: {}", self.length);
+        println!("height: {}", self.height);
+    }
 }
 struct Shippingbox {
     color: Color,
@@ -25,16 +42,26 @@ struct Shippingbox {
     dimension: Dimension,
 }
 impl Shippingbox {
-    fn show_box(&self) {
-        println!("{} Color of the box ", self.color);
-        println!("{} weight of the box", self.weight );
+    fn new(color: Color, weight: f64, dimension: Dimension) -> Self {
+            Self {
+                color,
+                weight,
+                dimension
+            }
         }
+    fn print(&self) {
+        self.color.print();
+        self.dimension.print();
+        println!("weight: {}", self.weight);
+    }
     }
 fn main() {
-    let box_temp = Shippingbox {
-    color: Color::Blue,
-    weight: 100.0,
-    dimension: Dimension { width: (10.0), heigt: (20.0), length: (40.0) }
+    let small_box = Dimension {
+    width: 20.0,
+    length: 40.0,
+    height: 10.0
     };
-    box_temp.show_box();
+    let my_box = Shippingbox::new(Color::Yellow, 20.0, small_box);
+    my_box.print();
+
 }
