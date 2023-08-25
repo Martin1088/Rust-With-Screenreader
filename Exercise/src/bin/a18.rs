@@ -15,10 +15,21 @@ struct Customer {
     age: i32,
 }
 
-fn check_age(input: &Customer) -> Result<(), String> {
-    match  {
+fn check_age(input: &Customer) -> Result<String, String> {
+    println!("Name: {:?}", input.name);
+    match input.age {
+        0..=21 => Err("You are to young".to_owned()),
+        _ => Ok("You are old enough!".to_owned())
 
     }
 }
 
-fn main() {}
+fn main() {
+    let test = Customer{
+        name: "Merlin Jurk".to_owned(),
+        age: 22
+    };
+    let result = check_age(&test);
+    println!("{:?}", result);
+
+}

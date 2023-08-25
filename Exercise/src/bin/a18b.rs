@@ -22,4 +22,65 @@
 // * Print whether the employee may access the building
 //   * Must use a function that utilizes the question mark operator to do this
 
-fn main() {}
+
+enum Department {
+    MaintenanceCrews,
+    MarketingDepartmentEmployees,
+    Managers,
+    LineSupervisors,
+    KitchenStaff,
+    AssemblyTechnicians,
+}
+enum Status {
+    Activ,
+    Terminated,
+}
+struct Employees {
+    name: String,
+    position: Department,
+    status: Status,
+}
+
+fn check(employee: &Employees) -> Result<(), String> {
+    println!("Name: {:?}", employee.name);
+    match employee.status {
+        Status::Terminated => return Err("terminated".to_owned()),
+        _ => (),
+    }
+    match employee.position {
+        Department::MaintenanceCrews => Ok(()),
+        Department::MarketingDepartmentEmployees => Ok(()),
+        Department::Managers => Ok(()),
+        _ => Err("invalid position".to_owned())
+    }
+}
+
+fn print_check(employee: &Employees) -> Result<(), String> {
+    let result = check(employee)?;
+    println!("access ok");    
+    Ok(())
+}
+
+fn main() {
+    let merlin = Employees{
+        name: "Merlin Jurk".to_owned(),
+        position: Department::KitchenStaff,
+        status: Status::Activ,
+    };
+    let lilo = Employees{
+        name: "Lilo Seene".to_owned(),
+        position: Department::Managers,
+        status: Status::Activ,
+    };
+
+    match print_check(&merlin) {
+        Err(e) => println!("access denied {:?}", e),
+        _ => (),
+    }
+
+    match print_check(&lilo) {
+        Err(e) => println!("access denied {:?}", e),
+        _ => (),
+    }
+
+}

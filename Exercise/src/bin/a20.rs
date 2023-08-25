@@ -23,4 +23,31 @@
 // * The program should be case-insensitive (the user should be able to type
 //   Reboot, reboot, REBOOT, etc.)
 
+use std::io;
+enum Powerstate {
+    Reboot,
+    Off,
+    Sleep,
+    Shutdown,
+    Hibernate,
+}
+
+fn input() -> io::Result<String> {
+    let mut buffer = String::new();
+    io::stdin().read_line(&mut buffer)?;
+    Ok(buffer.trim_right().to_lowercase.to_owned())
+}
+
+fn check(state: &Powerstate) {
+    match state {
+        Powerstate::Off => println!("is off"),
+        Powerstate::Sleep => println!("is a sleep"),
+        Powerstate::Reboot => println!("is rebooting"),
+        Powerstate::Hibernate => println!("is at rest"),
+        Powerstate::Shutdowndown => println!("is shutingdown"),
+        _ => println!("not existing"),
+
+
+    }
+}
 fn main() {}
