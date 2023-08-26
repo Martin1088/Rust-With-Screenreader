@@ -34,7 +34,10 @@ enum Powerstate {
 
 impl Powerstate {
     fn new(state: &str) -> Option<Powerstate> {
-        match state {
+        let state = state.trim().to_lowercase();
+        print_type_of(&state);
+        print_type_of(&state.as_str());
+        match state.as_str() {
             "reboot" => Some(Powerstate::Reboot),
             "off" => Some(Powerstate::Off),
             "sleep" => Some(Powerstate::Sleep),
@@ -53,6 +56,7 @@ fn input() -> io::Result<String> {
 }
 
 fn print_check(state: Powerstate) {
+    print_type_of(&state);
     match state {
         Powerstate::Off => println!("is off"),
         Powerstate::Sleep => println!("is a sleep"),
@@ -62,15 +66,21 @@ fn print_check(state: Powerstate) {
     }
 }
 
+fn print_type_of<T>(_:&T) {
+    println!("Type: {:?}", std::any::type_name::<T>())
+}
+
 
 fn main() {
+    println!("Type in a Powerstate");
     match input() {
         Ok(result) => {
-            match Powerstate::new(result.trim().to_lowercase()) {
+            print_type_of(&result);
+            match Powerstate::new(&result) {
                 Some(state) => print_check(state),
-                None(e) => println!(),
+                None => println!("invalid"),
             }
         },
-        Err(e) => println!(),
+        Err(e) => println!("{e}"),
     }
 }

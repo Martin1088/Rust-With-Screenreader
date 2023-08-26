@@ -32,10 +32,14 @@ enum Powerstate {
     Hibernate,
 }
 
-fn input() -> io::Result<String> {
+fn input() -> String {
     let mut buffer = String::new();
-    io::stdin().read_line(&mut buffer)?;
-    Ok(buffer.trim_right().to_lowercase().to_owned())
+    io::stdin()
+        .read_line(&mut buffer)
+        .expect ("invalid");
+    let result = buffer.trim().to_lowercase().to_owned();
+    print_type_of(&result);
+    return result;
 }
 
 fn check(input: &str) -> Result<Powerstate,String> {
@@ -51,21 +55,25 @@ fn check(input: &str) -> Result<Powerstate,String> {
 
 fn print_check(input: &str) {
     let state = check(&input);
+    print_type_of(&state);
     match state {
         Ok(Powerstate::Off) => println!("is off"),
         Ok(Powerstate::Sleep) => println!("is a sleep"),
         Ok(Powerstate::Reboot) => println!("is rebooting"),
         Ok(Powerstate::Hibernate) => println!("is at rest"),
         Ok(Powerstate::Shutdown) => println!("is shutingdown"),
-        Err(e) => println!("not existing"),
+        Err(e) => println!("{e}"),
 
 
     }
 }
+
+fn print_type_of<T>(_:&T) {
+    println!("Type: {:?}", std::any::type_name::<T>())
+}
+
 fn main() {
-    let user: String = input();
-    match user {
-        Ok(result) => print_check(result),
-        Err(_) => (),
-    }
+    let user = input();
+    print_type_of(&user);
+    print_check(&user);
 }
