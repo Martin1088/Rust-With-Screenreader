@@ -32,45 +32,40 @@ enum Powerstate {
     Hibernate,
 }
 
-impl Powerstate {
-    fn new(state: &str) -> Option<Powerstate> {
-        match state {
-            "reboot" => Some(Powerstate::Reboot),
-            "off" => Some(Powerstate::Off),
-            "sleep" => Some(Powerstate::Sleep),
-            "shutdown" => Some(Powerstate::Shutdown),
-            "hibernate" => Some(Powerstate::Hibernate),
-        _ => None,
-        }
-    }
-
-}
-
 fn input() -> io::Result<String> {
     let mut buffer = String::new();
     io::stdin().read_line(&mut buffer)?;
-    Ok(buffer.to_owned())
+    Ok(buffer.trim_right().to_lowercase().to_owned())
 }
 
-fn print_check(state: Powerstate) {
-    match state {
-        Powerstate::Off => println!("is off"),
-        Powerstate::Sleep => println!("is a sleep"),
-        Powerstate::Reboot => println!("is rebooting"),
-        Powerstate::Hibernate => println!("is at rest"),
-        Powerstate::Shutdown => println!("is shutingdown"),
+fn check(input: &str) -> Result<Powerstate,String> {
+    match input {
+        "reboot" => Ok(Powerstate::Reboot),
+        "off" => Ok(Powerstate::Off),
+        "sleep" => Ok(Powerstate::Sleep),
+        "shutdown" => Ok(Powerstate::Shutdown),
+        "hibernate" => Ok(Powerstate::Hibernate),
+        _ => Err("not valid".to_owned()),
     }
 }
 
+fn print_check(input: &str) {
+    let state = check(&input);
+    match state {
+        Ok(Powerstate::Off) => println!("is off"),
+        Ok(Powerstate::Sleep) => println!("is a sleep"),
+        Ok(Powerstate::Reboot) => println!("is rebooting"),
+        Ok(Powerstate::Hibernate) => println!("is at rest"),
+        Ok(Powerstate::Shutdown) => println!("is shutingdown"),
+        Err(e) => println!("not existing"),
 
+
+    }
+}
 fn main() {
-    match input() {
-        Ok(result) => {
-            match Powerstate::new(result.trim().to_lowercase()) {
-                Some(state) => print_check(state),
-                None(e) => println!(),
-            }
-        },
-        Err(e) => println!(),
+    let user: String = input();
+    match user {
+        Ok(result) => print_check(result),
+        Err(_) => (),
     }
 }
