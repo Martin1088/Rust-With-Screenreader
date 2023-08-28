@@ -17,5 +17,80 @@
 //   throughout your program.
 // * Create your program starting at level 1. Once finished, advance to the
 //   next level.
+use std::io;
+use std::collections::HashMap;
 
-fn main() {}
+struct Bill {
+    name: String,
+    amount: f64,
+}
+
+impl Bill{
+    fn new(name: &str, amount: &f64) -> Bill {
+        Bill { name: name.to_string(), amount: amount.clone()}
+    }
+}
+
+fn input() -> String {
+    let mut user_input = String::new();
+    io::stdin()
+        .read_line(&mut user_input)
+        .expect("faild to read");
+    return user_input.trim().to_owned();
+}
+
+fn menu() {
+    println!("1) add a bill");
+    println!("2) show all bills");
+    println!("3) remove abill");
+    println!("4) edit existing bill");
+    println!("5) quit");
+    println!("type your selection");
+}
+
+fn add_bill() -> Bill {
+    println!("Type the name of your bill");
+    let name: String = input();
+    println!("Type the amount with . :");
+    let amount: f64 = input().parse::<f64>().expect("not a valid number");
+    return Bill::new(&name, &amount)
+}
+
+fn show_bills(result: &HashMap<i32, Bill>) {
+    for (key, val) in result {
+        print!("{:?}  ", key);
+        print!("bill: {:?} {:?} Euro", val.name, val.amount);
+        println!();
+    }
+}
+
+fn print_type_of<T>(_:&T) {
+    println!("Type: {:?}", std::any::type_name::<T>())
+}
+
+
+fn main() {
+    let mut bills: HashMap<i32, Bill> = HashMap::new();
+    let mut number:i32 = 1;
+    let mut id:i32 = 1;
+    while number != 5 {
+        menu();
+        number = input().parse::<i32>().expect("not a number");
+        match number {
+            1 => {
+                let result = add_bill();
+                print_type_of(&result);
+                bills.insert(id, result);
+            },
+            2 => {
+                print_type_of(&bills);
+                show_bills(&bills);
+            },
+            3 => println!("remove"),
+            4 => println!("update"),
+            5 => number = 5,
+            _ => println!("not a valid selection "),
+        };
+    id += 1;
+    }
+}
