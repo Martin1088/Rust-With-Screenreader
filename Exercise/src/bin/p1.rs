@@ -20,6 +20,7 @@
 use std::io;
 use std::collections::HashMap;
 
+#[derive(Debug)]
 struct Bill {
     name: String,
     amount: f64,
@@ -68,6 +69,15 @@ fn print_type_of<T>(_:&T) {
     println!("Type: {:?}", std::any::type_name::<T>())
 }
 
+fn remove_bill(result: &mut HashMap<i32, Bill>) {
+    println!("Type the is to remove the Entry");
+    let id: i32 = input().parse::<i32>().expect("not a Number");
+    if id == 0{
+        return;
+    }
+    println!("is a Entry:  {:?}", result.contains_key(&id));
+    println!("Entry:{:?} ", result.remove_entry(&id));
+}
 
 fn main() {
     let mut bills: HashMap<i32, Bill> = HashMap::new();
@@ -86,8 +96,16 @@ fn main() {
                 print_type_of(&bills);
                 show_bills(&bills);
             },
-            3 => println!("remove"),
-            4 => println!("update"),
+            3 => remove_bill(&mut bills),
+            4 => {
+                println!("Type the is to edot the Entry");
+                let id: i32 = input().parse::<i32>().expect("not aNumber");
+                if id == 0{
+                    return;
+                }
+                bills.insert(id, add_bill());
+
+            } 
             5 => number = 5,
             _ => println!("not a valid selection "),
         };
