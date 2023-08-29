@@ -1,4 +1,4 @@
-//use rusqlite;
+use rusqlite;
 
 fn table_create() -> rusqlite::Result<()>{
     let conn = rusqlite::Connection::open("dogs.db")?;
