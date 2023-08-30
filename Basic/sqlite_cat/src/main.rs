@@ -10,7 +10,7 @@ struct Person {
 }
 
 fn main() -> Result<()> {
-    let conn = Connection::open_in_memory()?;
+    let conn = Connection::open("cats.db")?;
 
     conn.execute(
         "CREATE TABLE person (
