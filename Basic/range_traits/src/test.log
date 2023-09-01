@@ -1,0 +1,33 @@
+warning: unused variable: `range`
+  --> src/main.rs:36:9
+   |
+36 |     let range = 1..=3;
+   |         ^^^^^ help: if this is intentional, prefix it with an underscore: `_range`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: fields `name` and `age` are never read
+ --> src/main.rs:6:5
+  |
+5 | struct Person {
+  |        ------ fields in this struct
+6 |     name: String,
+  |     ^^^^
+7 |     age: i32,
+  |     ^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: fields `name` and `age` are never read
+  --> src/main.rs:21:5
+   |
+20 | struct Dog {
+   |        --- fields in this struct
+21 |     name: String,
+   |     ^^^^
+22 |     age: i32,
+   |     ^^^
+
+warning: `range_traits` (bin "range_traits") generated 3 warnings (run `cargo fix --bin "range_traits"` to apply 1 suggestion)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `/home/m049k/Projects/Rust-With-Screenreader/Basic/range_traits/target/debug/range_traits`
