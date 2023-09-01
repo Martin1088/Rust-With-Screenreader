@@ -11,10 +11,40 @@
 // * Use a trait to declare a perimeter calculation function
 // * Use a single function to print out the perimeter of the shapes
 //   * The function must utilize impl trait as a function parameter
+trait Perimeter {
+    fn calc_perimeter(&self);
+}
 
 struct Square {
     side: i32,
 }
 
-impl 
-fn main() {}
+impl Square {
+    fn new(side: &i32) -> Square { Square { side: side.clone() } }
+}
+
+impl Perimeter for Square {
+    fn calc_perimeter(&self) { println!("Perimeter Square: {:?}", self.side *4 ) }
+}
+
+struct Triangle {
+    a: i32,
+    b: i32,
+    c: i32,
+}
+
+impl Triangle {
+    fn new(a: &i32, b: &i32, c: &i32) -> Triangle {
+        Triangle { a: a.clone(),  b: b.clone(), c: c.clone() }
+    }
+}
+
+impl Perimeter for Triangle {
+    fn calc_perimeter(&self) { println!("Perimeter Triangle: {:?}", self.a + self.b + self.c ) }
+}
+fn main() {
+    let s1 = Square::new(&20);
+    s1.calc_perimeter();
+    let t1 = Triangle::new(&20, &10, &10 );
+    t1.calc_perimeter();
+}
