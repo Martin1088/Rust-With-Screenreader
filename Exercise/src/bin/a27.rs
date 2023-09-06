@@ -11,7 +11,14 @@
 
 use thiserror::Error;
 
-enum ProgramError {}
+#[derive(Debug, Error)]
+enum ProgramError {
+    #[error("Menu not Found")]
+    CustomMenuError(#[from] crate::MenuError),
+    #[error("can not divide")]
+    CustomMathError(#[from] crate::MathError),
+
+}
 
 #[derive(Debug, Error)]
 enum MenuError {
