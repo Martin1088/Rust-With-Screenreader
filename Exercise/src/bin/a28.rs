@@ -23,4 +23,6 @@ enum Color {
     Yellow,
 }
 
+struct 
+
 fn main() {}
