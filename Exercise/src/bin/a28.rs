@@ -44,11 +44,18 @@ impl PantsColor{
 
 fn print_color_shirt(color: ShirtColor) { println!(" {:?}", color) }
 
-fn print_color_shoes(color: ShirtColor) { println!(" {:?}", color) }
+fn print_color_shoes(color: ShoesColor) { println!(" {:?}", color) }
 
 fn print_color_pants(color: PantsColor) { println!(" {:?}", color)}
  
 
 fn main() {
+    let shoes01 = ShoesColor::new(Color::Blue);
+    let shirt01 = ShirtColor::new(Color::Green);
+    let pants01 = PantsColor::new(Color::Black);
 
+
+    print_color_pants(pants01);
+    print_color_shirt(shirt01);
+    print_color_shoes(shoes01);
 }
