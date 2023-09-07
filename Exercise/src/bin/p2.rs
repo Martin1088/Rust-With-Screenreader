@@ -24,5 +24,82 @@
 //   to the next level.
 // * Make your program robust: there are 7 errors & multiple blank lines
 //   present in the data.
+mod help_fn;
 
-fn main() {}
+use std::collections::HashMap;
+use std::fs::File;
+use std::io::BufRead;
+use std::io::BufReader;
+use std::path::PathBuf;
+use structopt::StructOpt;
+
+#[derive(Debug, StructOpt)]
+struct Opt {
+    #[structopt(short, long, parse(from_os_str))]
+    infile: PathBuf,
+    #[structopt(short, long, parse(from_os_str))]
+    outfile: PathBuf,
+}
+
+fn print_type_of<T>(_:&T) {
+    println!("Type: {:?}", std::any::type_name::<T>())
+}
+
+
+fn read_file(result: &mut HashMap<i32, Contact>) -> std::io::Result<()> {
+    let opts = Opt::from_args();
+    let mut file = File::open(opts.infile)?;
+    let mut reader = BufReader::new(file);
+    let mut line = String::new();
+    loop {
+        let len = reader.read_line(&mut line)?;
+        match len {
+            0 => break,
+            _ => {
+                let data = line.split(",");
+                for d in data {
+                    //print_type_of(&d);
+                    if d.eq("") {
+                        break;
+                    }
+                    print!("{} ", d);
+                }
+                line.clear();
+                println!();
+            }
+        }
+    }
+    Ok(())
+
+}
+
+struct Contact {
+    name: String,
+    email: String,
+}
+
+fn main() {
+    //let mut opt = Opt { infile: PathBuf::from("contacts_test.csv"), outfile: PathBuf::from("contacts_finish.csv"), };
+    //opt.infile = PathBuf::from("contacts_test.csv");
+    let mut contacts: HashMap<i32, Contact> = HashMap::new();
+    let mut number:i32 = 1;
+    let mut id:i32 = 501;
+    match read_file(&mut contacts) {
+        Ok(o) => println!(" {:?}", o),
+        Err(e) => println!("{:?}", e),
+    }
+
+    while number != 5 {
+        help_fn::menu();
+        number = help_fn::input().parse::<i32>().expect("not a number");
+        match number {
+            1 => help_fn::menu(),
+            2 => {
+            } 
+            5 => number = 5,
+            _ => println!("invalid selection"),
+        }
+        id += 1;
+    }
+
+}
