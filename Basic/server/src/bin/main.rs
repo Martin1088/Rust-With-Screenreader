@@ -1,6 +1,9 @@
-use std::fs;
 use std::io::prelude::*;
 use std::net::{TcpListener, TcpStream};
+use std::time::Duration;
+use std::{fs, thread};
+
+use server::ThreatPool;
 
 struct Pages {
     filename: String,
@@ -29,6 +32,7 @@ fn connection_handler(mut stream: TcpStream) {
     // println!("Result : {:?}", String::from_utf8_lossy(&buffer[..]));
 
     let get: &[u8; 16] = b"GET / HTTP/1.1\r\n";
+    let hello: &[u8; 21] = b"GET /hello HTTP/1.1\r\n";
     // Page for Message and Error
     let message: Pages = Pages::new(
         "index.html".to_string(),
@@ -40,18 +44,21 @@ fn connection_handler(mut stream: TcpStream) {
     );
     if buffer.starts_with(get) {
         Pages::check_get(message, stream);
+    } else if buffer.starts_with(hello) {
+        thread::sleep(Duration::from_secs(15));
+        Pages::check_get(message, stream);
     } else {
         Pages::check_get(error, stream);
     }
 }
 
-fn main() -> std::io::Result<()> {
-    let listener = TcpListener::bind("0.0.0.0:7878")?;
+fn main() {
+    let listener = TcpListener::bind("0.0.0.0:7878").unwrap();
+    let pool = ThreatPool::new(4);
     for stream in listener.incoming() {
-        match stream {
-            Ok(stream) => connection_handler(stream),
-            Err(e) => println!("Error"),
-        }
+        let stream = stream.unwrap();
+        pool.execute(|| {
+            connection_handler(stream);
+        });
     }
-    Ok(())
 }
