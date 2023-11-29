@@ -1,0 +1,3 @@
+[workspace]
+
+members = ["axum-test", "hello-world", "generate-num", "html", "routing"]
