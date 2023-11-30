@@ -21,5 +21,5 @@ struct RangeParameter {
 
 async fn handler(Query(range): Query<RangeParameter>) -> Html<String> {
     let rand_number = thread_rng().gen_range(range.start..range.end);
-    Html(format!("<h1> Random Numer {} </h1>", rand_number))
+    Html(format!("<h1> Random Numer {} </h1> <br>", rand_number))
 }
