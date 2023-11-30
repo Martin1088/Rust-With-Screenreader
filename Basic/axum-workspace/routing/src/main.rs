@@ -1,3 +1,4 @@
+mod group;
 fn main() {
-    server_
+    group::run_server();
 }

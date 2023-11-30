@@ -2,7 +2,7 @@ use axum::{response::Html, routing::get, Router};
 use std::net::SocketAddr;
 
 #[tokio::main()]
-async fn run_server() {
+pub async fn run_server() {
     let app = Router::new().route("/", get(handler));
     let addr = SocketAddr::from(([0, 0, 0, 0], 8000));
     axum::Server::bind(&addr)
