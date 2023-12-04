@@ -1,0 +1,39 @@
+
+use axum::{Router, handler::post};
+use axum::http::{Request, Response, StatusCode};
+use axum::routing::BoxRoute;
+
+async fn soap_request_handler(req: Request) -> Result<Response, StatusCode> {
+    let body = req.into_body().into_bytes().await?;
+    let soap_request = String::from_utf8_lossy(&body);
+
+    // Simulate handling the SOAP request
+    // Here, you'd parse the SOAP request and perform the required operations
+
+    // Simulate a SOAP response
+    let soap_response = r#"
+        <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+            <SOAP-ENV:Body>
+                <Response>Data from SOAP request</Response>
+            </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+    "#;
+
+    Ok(Response::builder()
+        .status(StatusCode::OK)
+        .header("Content-Type", "text/xml")
+        .body(soap_response.into())
+        .unwrap())
+}
+
+#[tokio::main]
+async fn main() {
+    // Create a new Axum router
+    let app = Router::new().route("/soap", post(soap_request_handler));
+
+    // Run the server on port 3000
+    axum::Server::bind(&"127.0.0.1:3000".parse().unwrap())
+        .serve(app.into_make_service())
+        .await
+        .unwrap();
+}
