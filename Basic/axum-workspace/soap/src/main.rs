@@ -18,11 +18,12 @@ async fn soap_request_handler() -> Result<Response<T>, StatusCode> {
         </SOAP-ENV:Envelope>
     "#;
 
-    Ok(Response::builder()
+    let response = Response::builder()
         .status(StatusCode::OK)
         .header("Content-Type", "text/xml")
         .body(soap_response.into())
-        .unwrap())
+        .unwrap();
+    response.text().unwrap()
 }
 
 #[tokio::main]
