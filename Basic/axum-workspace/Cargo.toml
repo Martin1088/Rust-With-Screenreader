@@ -6,5 +6,5 @@ members = [
   "generate-num",
   "html",
   "routing",
-  "soap",
+  "example",
 ]
