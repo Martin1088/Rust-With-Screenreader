@@ -1,0 +1,23 @@
+{ 
+"today":[
+        {
+            "mrbs_area": "Heidelberg",
+            "mitarbeiter": [
+                {"name": "Tina", "room": "S.2.124"},
+                {"name": "Emil", "room": "S.2.110"}
+            ]
+        },
+        {
+            "mrbs_area": "Mannheim",
+            "mitarbeiter": [
+                {"name" : "Patrik", "room": "004"}
+            ]
+        },
+        {
+            "mrbs_area" : "Homeoffice",
+            "mitarbeiter" : [
+                {"name" : "Jori", "room" : "000"}
+            ]
+        }
+    ]
+}

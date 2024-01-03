@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <title>Tierheim beispiel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <h2>Formular Test </h2>
+    <b>Teirheim: </b>
+    <form action="kontakt" method="pOST">
+      <label for="vorname">Ihr Vorname</label>
+      <input type="text" name="vorname" value="vorname">
+        <label for="nachname">Ihre Nachname</label>
+      <input type="text" name="nachname" value="nachname" required><br>
+        <label for="email">Ihre Email</label>
+      <input type="email" name="email" value="email" required><br>
+        <label for="tel">Ihre Telefonnummer</label>
+      <input type="tel" name="tel" value="tel"><br>
+        <label for="date">Geburtsdatum</label>
+      <input type="date" name="date" value="date"><br>
+        <label for="tiere">Haben Sie Tiere</label><br>
+        <select name="tiere" size="4">
+          <option value="nein" selected="selected">Nein</option>
+        <option value="ja1">Ja , eines</option>
+        <option value="ja2">Ja, zwei/option>
+          <option value="ja3">Ja, drei oder mehrere</option>
+        </select><br>
+        <h2>Ich wünsche Informationen:</h2>
+      <label for="adopt">Tier adoptieren</label>
+      <input type="checkbox" name="adopt" value="Tier adoptieren"><br>
+        <label for="finanzieren">Tierheim finaziell unterstützen</label>
+      <input type="checkbox" name="finanzieren" value="finaziel unterstützen"><br>
+        <label for="ehre">Ehrenamtlich Mitarbeiten</label>
+      <input type="checkbox" name="ehre" value="Ehrenamt mitarbeiten"><br>
+        <label for="info">Informationsverstaltung</label>
+      <input type="checkbox" name="info" value="Infoveranstaltung"><br>
+        <input type="submit" name="submit" value="Formular abschicken">
+        <input type="reset" name="reset" value="Zurpcksetzen"><br>
+
+    </form>
+
+  </body>
+</html>

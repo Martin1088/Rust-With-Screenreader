@@ -1,0 +1,7 @@
+        {
+            "mrbs_area": "Heidelberg",
+            "mitarbeiter": [
+                {"name": "Torben", "room": "S.2.124"},
+                {"name": "Emil", "room": "S.2.110"}
+            ]
+        }
