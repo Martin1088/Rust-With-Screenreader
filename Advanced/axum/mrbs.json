@@ -1,5 +1,4 @@
-{ 
-"today":[
+[
         {
             "mrbs_area": "Heidelberg",
             "mitarbeiter": [
@@ -20,4 +19,3 @@
             ]
         }
     ]
-}

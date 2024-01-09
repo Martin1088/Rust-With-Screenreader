@@ -24,7 +24,14 @@ pub struct Overview {
 
 // with Json<Area> only one ist possible like in mtest.json
 // here mrbs.json all Area
-pub async fn json_mrbs(Json(area): Json<Overview>) -> (StatusCode, Response) {
+pub async fn json_mrbs(Json(area): Json<Area>) -> (StatusCode, Response) {
+    // dbg!(area);
+    // todo!();
+    // Json(area)
+    (StatusCode::CREATED, Json(area).into_response())
+}
+
+pub async fn json_mrbs_full(Json(area): Json<Vec<Area>>) -> (StatusCode, Response) {
     // dbg!(area);
     // todo!();
     // Json(area)

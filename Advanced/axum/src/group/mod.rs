@@ -18,7 +18,7 @@ use tokio::net::TcpListener;
 use tower_http::cors::{Any, CorsLayer};
 
 use self::{
-    json_mirror::json_mrbs,
+    json_mirror::{json_mrbs, json_mrbs_full},
     middle::{always_errors, show_custom, SharedData},
     state::AppState,
     test_html::{param_var, path_var, show_header},
@@ -41,6 +41,7 @@ pub async fn run_server() {
         .route("/mirror", post(mirror_string))
         .route("/mirrow_json", post(json_mirror))
         .route("/mrbs", post(json_mrbs))
+        .route("/mrbsfull", post(json_mrbs_full))
         .route("/path_var/:id", post(path_var))
         .route("/param", post(param_var))
         .route("/header", get(show_header))
