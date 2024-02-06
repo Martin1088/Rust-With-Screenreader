@@ -14,3 +14,4 @@ Cargo.lock
 *.pdb
 # vim rust tags
 *.vi
+node_modules/
