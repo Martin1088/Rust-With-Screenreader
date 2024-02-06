@@ -1,6 +1,6 @@
 use std::i32;
 
-use chrono::{Datelike, NaiveDate, NaiveDateTime, TimeZone, Timelike, Utc};
+use chrono::{DateTime, Datelike, NaiveDate, NaiveDateTime, TimeZone, Timelike, Utc};
 pub struct TimeFunctions;
 impl TimeFunctions {
     pub fn start_of_day() -> i32 {
@@ -44,5 +44,19 @@ impl TimeFunctions {
         println!(" {}", test);
         println!(" {}", time_now);
         println!(" {}", test_rfc);
+    }
+
+    pub fn rfc_to() {
+        let test = "2024-02-06T00:00:00Z".to_owned();
+        let day = DateTime::parse_from_rfc3339(&test).unwrap();
+        let end_day = day
+            .date_naive()
+            .and_hms_opt(23, 59, 59)
+            .unwrap_or(Utc::now().date_naive().into())
+            .timestamp() as i32;
+
+        println!("rfc {}", test);
+        println!("change {}", day.timestamp());
+        println!("ende  {}", end_day);
     }
 }
