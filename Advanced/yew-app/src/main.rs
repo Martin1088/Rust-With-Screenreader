@@ -1,5 +1,7 @@
+use group::App;
+
 mod group;
 
 fn main() {
-    println!("Hello, world!");
+    yew::Renderer::<App>::new().render();
 }
