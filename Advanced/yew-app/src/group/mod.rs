@@ -1,6 +1,5 @@
-mod request_mrbs;
-
-use yew::{prelude::*};
+mod reqwasm_mrbs;
+use yew::prelude::*;
 
 //use crate::group::request_mrbs::{mrbs_test, EntryRelatedData};
 

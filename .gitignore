@@ -15,3 +15,5 @@ Cargo.lock
 # vim rust tags
 *.vi
 node_modules/
+# yew 
+dist/
