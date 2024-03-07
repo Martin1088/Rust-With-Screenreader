@@ -1,26 +1,33 @@
 <script lang="ts">
   import Greet from './lib/Greet.svelte'
+  import today from './today.json'
 </script>
 
 <main class="container">
-  <h1>Welcome to Tauri!</h1>
-
-  <div class="row">
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo vite" alt="Vite Logo" />
-    </a>
-    <a href="https://tauri.app" target="_blank">
-      <img src="/tauri.svg" class="logo tauri" alt="Tauri Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank">
-      <img src="/svelte.svg" class="logo svelte" alt="Svelte Logo" />
-    </a>
+  <h1>Raumplaner Demo</h1>
+  <div> 
+    <container class="wider mobile">
+      <h1>Raumplaner</h1>
+        {#each today as today }
+        <h2>{ today.area_name }</h2>
+        <select name="allrooms" id="allroooms">
+          {#each today.rooms as room}
+            <option value="{ room.room_name }">{ room.room_name }</option>
+          {/each}
+        </select>
+        <input type="button" value="join">
+        <button type="button">unjoin for {today.area_name}</button>
+        <ul>
+          {#each today.rooms as room}
+            <li>{ room.room_name }</li>
+            <li>{ room.participants}</li>
+          {/each}
+        </ul>
+         {/each}
+    </container>
   </div>
-
-  <p>
-    Click on the Tauri, Vite, and Svelte logos to learn more.
-  </p>
-
+  
+ 
   <div class="row">
     <Greet />
   </div>
@@ -29,11 +36,18 @@
 </main>
 
 <style>
-  .logo.vite:hover {
-    filter: drop-shadow(0 0 2em #747bff);
-  }
-
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00);
-  }
+    div {
+      margin: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    @media only screen and (max-width: 620px) {
+      container.mobile {
+        width: 300px;
+        word-wrap: break-word;
+      }
+    }
+ 
 </style>

@@ -6,6 +6,19 @@
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
+#[tauri::command]
+fn mrbs_today() -> Json<Vec<EntryRelatedData>> {
+    let request = format!("http://localhost:7878/today");
+    let response = reqwest::get(&request)
+        .await
+        .unwrap()
+        .json::<Vec<EntryRelatedData>>()
+        .await
+        .unwrap();
+
+    // let area: Vec<Area> = response.json().await.unwrap();
+    Json(response)
+} 
 
 fn main() {
     tauri::Builder::default()
