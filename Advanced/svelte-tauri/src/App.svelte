@@ -1,5 +1,6 @@
 <script lang="ts">
   import Greet from './lib/Greet.svelte'
+  import Mrbs from './lib/Mrbs.svelte';
   import today from './today.json'
 </script>
 
@@ -30,6 +31,9 @@
  
   <div class="row">
     <Greet />
+  </div>
+  <div class="row">
+    <Mrbs />
   </div>
 
 
