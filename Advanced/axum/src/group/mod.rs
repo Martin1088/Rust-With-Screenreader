@@ -16,6 +16,8 @@ use state::show_state;
 use test_html::test_html;
 use tokio::net::TcpListener;
 use tower_http::cors::{Any, CorsLayer};
+use utoipa::{openapi, OpenApi};
+use utoipa_swagger_ui::SwaggerUi;
 
 use self::{
     json_mirror::{json_mrbs, json_mrbs_full},
@@ -24,6 +26,14 @@ use self::{
     test_html::{param_var, path_var, show_header},
 };
 
+
+#[derive(OpenApi)]
+#[openapi(
+    paths(),
+    components(),
+    tags(),
+)]
+struct ApiDoc;
 #[tokio::main()]
 pub async fn run_server() {
     // let state_test = AppState {};
@@ -37,6 +47,7 @@ pub async fn run_server() {
     };
 
     let app: Router = Router::new()
+        .merge(SwaggerUi::new("/doc").url("/api/openapi.json", ApiDoc::openapi()))
         .route("/html", get(test_html))
         .route("/mirror", post(mirror_string))
         .route("/mirrow_json", post(json_mirror))
