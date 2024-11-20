@@ -4,22 +4,25 @@
 
   let dynamicContent: string = 'Initial content';
 
-  // Function to update the dynamic content by invoking the Tauri command
   async function updateContent() {
     try {
       // Call the Tauri command to get a random character
       const randomChar: string = await invoke<string>('dynamic');
       dynamicContent += randomChar;
 
-      // Programmatically focus the element to make it accessible for screen readers and braille displays
       const element = document.getElementById('dynamic-content');
       if (element) {
-        element.setAttribute('aria-busy', 'true'); // Indicate the element is updating
+        // Update the content and apply focus to trigger accessibility updates
         element.textContent = dynamicContent;
-        element.setAttribute('aria-busy', 'false'); // Reset busy state to indicate update completion
-        element.setAttribute('aria-relevant', 'all'); // Set relevant attributes to ensure braille updates
-        element.focus();
-        element.blur(); // Force an update by removing focus after focusing
+        element.setAttribute('aria-busy', 'true'); // Indicate update in progress
+        element.focus(); // Focus to force update
+        element.setAttribute('aria-busy', 'false'); // Mark update as complete
+
+        // Blurring and refocusing can sometimes help the braille display detect the change
+        setTimeout(() => {
+          element.blur(); // Remove focus briefly
+          element.focus(); // Refocus
+        }, 100);
       }
     } catch (error) {
       console.error('Error updating content:', error);
@@ -29,25 +32,41 @@
   // Set up the interval to update content every 10 seconds
   onMount(() => {
     const interval = setInterval(updateContent, 10000);
-    return () => clearInterval(interval); // Cleanup when component is destroyed
+    return () => clearInterval(interval); // Cleanup interval on component unmount
   });
-</script>
+  
+// function updateClock() {
+//   const now = new Date();
+//   document.getElementById("clock-hours").textContent = now.getHours();
+//   document.getElementById("clock-mins").textContent =
+//     `0${now.getMinutes()}`.substr(-2);
+// }
 
-<main>
-  <p
-    id="dynamic-content"
-    role="status"
-    aria-live="assertive"
-    aria-atomic="true"
-    aria-relevant="all"
-    tabindex="-1">
-    {dynamicContent}
-  </p>
-</main>
+// /* first run */
+// updateClock();
+
+// /* update every minute */
+// setInterval(updateClock, 60000);
+ </script>
+
+ <main>
+   <p
+     id="dynamic-content"
+     role="log"
+     aria-live="assertive"
+     aria-atomic="true"
+     tabindex="-1">
+     {dynamicContent}
+   </p> <br>
+//   <div id="clock" role="timer" aria-live="polite">
+//     <span id="clock-hours"></span>
+//     <span id="clock-mins"></span>
+//   </div>
+
+// </main>
 
 <style>
-  /* Optional styling for the dynamic content */
   #dynamic-content {
-    outline: none; /* Hide the outline when focused programmatically */
+    outline: none; /* Hide outline for better visual presentation */
   }
 </style>
