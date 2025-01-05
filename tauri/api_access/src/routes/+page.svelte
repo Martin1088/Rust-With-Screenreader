@@ -1,20 +1,20 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
-  import { testdefault, testenv } from "../ts/fetch";
   import { onMount } from "svelte";
-  import { projektdir, projektenv } from "../ts/store";
+  import { testdefault } from "../ts/fetch";
+  import { projekttest } from "../ts/store";
+
   let name = $state("");
   let greetMsg = $state("");
 
-  onMount(() => {
-    testdefault();
-    testenv();
-  });
   async function greet(event: Event) {
     event.preventDefault();
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     greetMsg = await invoke("greet", { name });
   }
+  onMount(() => {
+    testdefault();
+  });
 </script>
 
 <main class="container">
@@ -38,10 +38,8 @@
     <button type="submit">Greet</button>
   </form>
   <p>{greetMsg}</p>
-  <p>{$projektdir}</p>
   <br />
-  <p>test new</p>
-  <p>{$projektenv}</p>
+  <p>{$projekttest}</p>
 </main>
 
 <style>
