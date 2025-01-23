@@ -1,11 +1,9 @@
-mod model;
 mod help_fn;
+mod model;
 
 pub fn init_database() {
     model::table_create();
 }
-
-
 
 pub fn menu_prompt() {
     println!("1) add a bill");
@@ -36,11 +34,11 @@ fn add_bill() {
 fn print_data() {
     let result = model::show_entry_database();
     match result {
-        Ok(o) => {
+        Ok(rows) => {
             for entry in rows {
                 println!("{:?}", entry);
             }
-        },
+        }
         Err(e) => println!("Error: {:?}", e),
     }
 }
@@ -49,12 +47,12 @@ pub fn menu_main() {
     let mut choice: i32 = 0;
     menu_prompt();
     while choice != 5 {
-        match help_fn::input_num(){
+        match help_fn::input_num() {
             Some(num) => choice = num,
             None => choice = 5,
         }
         match choice {
-            1 => add_bill(), 
+            1 => add_bill(),
             2 => print_data(),
             3 => model::remove_entry_database(),
             4 => model::edit_entry_database(),
@@ -63,4 +61,3 @@ pub fn menu_main() {
         };
     }
 }
-
