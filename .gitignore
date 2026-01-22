@@ -19,3 +19,7 @@ node_modules/
 dist/
 *.DS_Store
 .DS_Store
+.idea/
+*.csv
+*.maf
+*.parquet 
