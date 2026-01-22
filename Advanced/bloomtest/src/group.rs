@@ -1,1 +1,2 @@
-mod reader;
+pub mod hash_test;
+pub mod reader;

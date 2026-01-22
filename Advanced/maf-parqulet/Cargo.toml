@@ -1,0 +1,12 @@
+[package]
+name = "maf-parqulet"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+resolver = "2"
+
+[dependencies]
+anyhow = "1.0.100"
+regex = "1.12.2"
+polars = { version = "0.52.0", default-features = false, features = ["csv", "parquet", "lazy", "fmt"]}
