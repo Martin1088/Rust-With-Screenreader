@@ -1,0 +1,95 @@
+core_config:
+  session_timeout: 10
+
+  database:
+    url: "jdbc:postgresql://db:5432/app_db"
+    username: "app_user"
+    password: "change_me"
+
+  servers:
+    - api_key: "changeme1"
+      permissions:
+        - CreateSession
+        - CreateToken
+        - TtAddPatient
+        - TtReadPatients
+        - TtEditPatient
+        - TtDeletePatient
+
+  oauth2config: null
+
+  threshold_match: 0.95
+  threshold_non_match: 0.6
+
+  id_config:
+    pid:
+      type: PIDGenerator
+      k1: 1
+      k2: 2
+      k3: 3
+      rndwidth: 0
+
+  bloom_salt: []
+  required_fields: []
+  validate_date: []
+  validate_fields: {}
+
+  field_desc:
+    - field:
+        name: first_name
+        p0: 0.000235
+        p1: 0.01
+      shared_field_type: String
+      similarity: Equality
+      exchange_group: exchange_group_0
+
+    - field:
+        name: surname
+        p0: 0.0000271
+        p1: 0.008
+      shared_field_type: String
+      similarity: Equality
+      exchange_group: exchange_group_0
+
+    - field:
+        name: birth_name
+        p0: 0.0000271
+        p1: 0.008
+      shared_field_type: String
+      similarity: Equality
+      exchange_group: exchange_group_0
+
+    - field:
+        name: birth_day
+        p0: 0.0333
+        p1: 0.005
+      shared_field_type: Integer
+      similarity: Equality
+
+    - field:
+        name: birth_month
+        p0: 0.0833
+        p1: 0.002
+      shared_field_type: Integer
+      similarity: Equality
+
+    - field:
+        name: birth_year
+        p0: 0.0286
+        p1: 0.004
+      shared_field_type: Integer
+      similarity: Equality
+
+    - field:
+        name: zip
+        p0: 0.01
+        p1: 0.04
+      shared_field_type: Integer
+      similarity: Equality
+
+    - field:
+        name: city
+        p0: 0.01
+        p1: 0.04
+      shared_field_type: String
+      similarity: Equality
