@@ -1,0 +1,14 @@
+[package]
+name = "crypto"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Tink approach — fully compatible with Mainzelliste key format
+tink-core   = { version = "0.2", features = ["insecure", "json"] }
+tink-daead  = "0.2"
+
+# Raw AES-SIV approach — lighter alternative
+aes-siv     = "0.7"
+base64      = "0.22"
+anyhow = "1.0.102"

@@ -10,3 +10,4 @@ resolver = "2"
 anyhow = "1.0.100"
 regex = "1.12.2"
 polars = { version = "0.52.0", default-features = false, features = ["csv", "parquet", "lazy", "fmt"]}
+polars = { version = "0.52.0", default-features = false, features = ["csv", "parquet"], optional = true}

@@ -33,5 +33,9 @@ services:
       ML_DB_NAME: mainzelliste
       ML_DB_USER: mainzelliste
       ML_DB_PASS: PleasePutASafePasswordHere
+      ML_LOG_LEVEL: INFO
+    volumes:
+      - ./config/mainzelliste.conf:/usr/local/tomcat/webapps/ROOT/WEB-INF/classes/mainzelliste.conf
+      
 volumes:
   db_data:
